@@ -3,18 +3,7 @@ A package that allows you to solve equations from their string representation
 and a number of known values.
 """
 import sympy
-
-
-# A set of pre-defined equations in the form (LHS, RHS)
-EQUATIONS = {
-    'newton II': ('F', 'm*a'),
-    'cos rule': ('a**2', 'b**2 + c**2 - 2*b*c*cos(theta)')
-    }
-
-# Turn the equations into their sympified form
-_EQUATIONS = {key: Equation(*value)
-        for key, value in EQUATIONS.items()}
-
+from sympy.solvers import solve as sym_solve
 
 
 class Equation:
@@ -55,7 +44,7 @@ class Equation:
             raise ValueError('No variables to solve for.')
 
         # Do the actual solving
-        solution = solvers.solve(equation.subs(variables), *not_given, dict=True)
+        solution = sym_solve(equation.subs(variables), *not_given, dict=True)
         return solution
 
 
@@ -81,3 +70,18 @@ def solve(eqn, **variables):
     # Do the actual solving
     solution = solvers.solve(equation.subs(variables), *not_given, dict=True)
     return solution
+
+
+
+# A set of pre-defined equations in the form (LHS, RHS)
+EQUATIONS = {
+    'newton II': ('F', 'm*a'),
+    'cos rule': ('a**2', 'b**2 + c**2 - 2*b*c*cos(theta)')
+    }
+
+# Turn the equations into their sympified form
+_EQUATIONS = {key: Equation(*value)
+        for key, value in EQUATIONS.items()}
+
+
+
