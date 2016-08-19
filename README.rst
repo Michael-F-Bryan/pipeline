@@ -32,7 +32,7 @@ machines are available you can do::
 Then if you want to use a particular machine, you just need to set the correct
 environment variables so docker knows who to talk to. ::
 
-    docker-machine use docker-sandbox
+    eval $(docker-machine env docker-sandbox)
 
 You can get access to the other machine with::
 
@@ -62,6 +62,7 @@ together without needing to expose ports on the host machine.
 To spin up and configure everything with one command run from the project root. 
 
 ::
+
     docker-compose up
 
 Docker, docker-compose, and docker-machine will do the rest.
