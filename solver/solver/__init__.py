@@ -15,15 +15,6 @@ class Equation:
         self.rhs = sympy.sympify(rhs)
         self.description = description
 
-    def __repr__(self):
-        return '<{}: "{} = {}">'.format(
-                self.__class__.__name__,
-                self.lhs,
-                self.rhs)
-
-    def __str__(self):
-        return '{} = {}'.format(self.lhs, self.rhs)
-
     def solve(self, **variables):
         # Get it in the form 0 = f(a, b, ...)
         equation = self.lhs - self.rhs
@@ -47,29 +38,14 @@ class Equation:
         solution = sym_solve(equation.subs(variables), *not_given, dict=True)
         return solution
 
+    def __repr__(self):
+        return '<{}: "{} = {}">'.format(
+                self.__class__.__name__,
+                self.lhs,
+                self.rhs)
 
-def solve(eqn, **variables):
-    # Get it in the form 0 = f(a, b, ...)
-    equation = eqn.lhs - eqn.rhs
-
-    free_variables = equation.free_symbols
-
-    # Go through the equation and the variables provided, checking to
-    # see which variables we weren't given
-    not_given = set()
-    for variable in free_variables:
-        if variable.name not in variables:
-            not_given.add(variable)
-
-    if len(not_given) > 1:
-        raise ValueError('Solver can only solve things if there is 1 unknown, '
-                         'unknown variables: "{}"'.format(not_given))
-    elif len(not_given) < 1:
-        raise ValueError('No variables to solve for.')
-
-    # Do the actual solving
-    solution = solvers.solve(equation.subs(variables), *not_given, dict=True)
-    return solution
+    def __str__(self):
+        return '{} = {}'.format(self.lhs, self.rhs)
 
 
 

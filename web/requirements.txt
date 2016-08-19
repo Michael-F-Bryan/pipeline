@@ -1,0 +1,7 @@
+gunicorn==19.6.0
+Django==1.10
+mpmath==0.19
+py==1.4.31
+pytest==2.9.2
+sympy==1.0
+

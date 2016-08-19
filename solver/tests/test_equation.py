@@ -32,3 +32,11 @@ class TestEquation:
         solution = eq.solve(a=4, m=2)
         assert solution == should_be
 
+    def test_solve_throws_for_invalid_number_of_variables(self, eq):
+        with pytest.raises(ValueError):
+            eq.solve(a=4)
+
+        with pytest.raises(ValueError):
+            eq.solve(F=1, m=4, a=3)
+
+
